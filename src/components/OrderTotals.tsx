@@ -4,10 +4,11 @@ import { useMemo } from "react"
 
 type OrderTotalsProps = {
     order: OrderItem[],
-    tip: number
+    tip: number,
+    placeOrder: () => void
 }
 
-export default function OrderTotals({ order, tip }: OrderTotalsProps) {
+export default function OrderTotals({ order, tip, placeOrder }: OrderTotalsProps) {
     // Calcula el subtotal del pedido (precio * cantidad por ítem) y memoriza el resultado.
     // Solo se recalcula si el array 'order' cambia, mejorando el rendimiento.
     const subtotalAmount = useMemo(() =>
@@ -40,7 +41,13 @@ export default function OrderTotals({ order, tip }: OrderTotalsProps) {
                         <span className='font-bold text-2xl'>{formatCurrency(paymentTotalAmount)}</span>
                     </p>
                 </div>
-                <button></button>
+                <button
+                    className="w-full bg-teal-900 p-3 uppercase text-white font-bold mt-10 cursor-pointer hover:bg-teal-700 disabled:cursor-not-allowed disabled:opacity-10"
+                    disabled={paymentTotalAmount === 0}
+                    onClick={placeOrder}
+                >
+                    Save Order
+                </button>
             </>
         </div>
     )

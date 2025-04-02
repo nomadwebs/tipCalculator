@@ -25,24 +25,26 @@ const tipOptions = [
 
 type TipPercentageFormProps = {
     //setTip: React.Dispatch<React.SetStateAction<number>>
-    setTip: Dispatch<SetStateAction<number>> //Los importo arriba
+    setTip: Dispatch<SetStateAction<number>>, //Los importo arriba
+    tip: number
 }
 
-export default function TipPercentageForm({ setTip }: TipPercentageFormProps) {
+export default function TipPercentageForm({ setTip, tip }: TipPercentageFormProps) {
     return (
         <div>
             <h3 className="font-black text-2xl">Tip:</h3>
 
             <form action="">
-                {tipOptions.map(tip => (
-                    <div key={tip.id} className="flex gap-2">
-                        <label htmlFor={tip.id}>{tip.label}</label>
+                {tipOptions.map(tipActual => (
+                    <div key={tipActual.id} className="flex gap-2">
+                        <label htmlFor={tipActual.id}>{tipActual.label}</label>
                         <input
                             type="radio"
-                            id={tip.id}
+                            id={tipActual.id}
                             name="tip"
-                            value={tip.value}
+                            value={tipActual.value}
                             onChange={e => setTip(+e.target.value)}
+                            checked={tipActual.value === tip} //Lo usamos para validar si hay que limpiar las opciones de tips
                             /* el setTip de arriba lee un string, pero como esperamos un number, le ponemos el simbolo + para convertirlo a numero */ />
                     </div>
                 ))}
